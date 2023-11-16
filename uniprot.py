@@ -1,8 +1,9 @@
 import sys
 
-import requests
 from urllib.parse import quote
 import pprint
+import requests
+
 
 def descargar_informacion_proteina(id_proteina):
     url = f"https://rest.uniprot.org/uniprotkb/{id_proteina}.json"
@@ -41,25 +42,4 @@ limite = 10
 ids_proteinas = descargar_ids_proteinas(criterio, limite)
 
 
-# Filtrar por número de estructuras
-ids_filtrados = []
-num_estructuras = 0
-for id_proteina in ids_proteinas:
-    info_proteina = descargar_informacion_proteina(id_proteina)
-    # pp = pprint.PrettyPrinter(depth=20)
 
-    # pp.pprint(info_proteina)
-    num_estructuras = obtener_numero_estructuras(info_proteina)
-    if info_proteina and num_estructuras > 0:  # Cambiar 0 al número deseado de estructuras
-        ids_filtrados.append(id_proteina)
-
-        num_estructuras +=  num_estructuras
-
-print(num_estructuras)
-
-# Guardar los IDs filtrados en un archivo
-with open("proteinas_uniprot_filtradas.txt", "w") as file:
-    for id in ids_filtrados:
-        file.write(id + "\n")
-
-print(f"Descargados {len(ids_filtrados)} IDs de proteínas con estructuras")
