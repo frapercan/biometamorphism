@@ -1,7 +1,7 @@
-from Bio import ExPASy
-from Bio import SwissProt
+from Bio import ExPASy, SwissProt
 import requests
 from urllib.parse import quote
+
 
 def descargar_ids_proteinas(criterio_busqueda):
     criterio_busqueda_codificado = quote(criterio_busqueda)
@@ -15,6 +15,8 @@ def descargar_ids_proteinas(criterio_busqueda):
     except Exception as e:
         print(f"Error al descargar datos: {e}")
         return []
+
+
 def descargar_uniprot(ids):
     """ Descarga entradas de UniProt dado un conjunto de IDs de UniProt. """
     for uniprot_id in ids:
@@ -26,8 +28,9 @@ def descargar_uniprot(ids):
         except Exception as e:
             print(f"Error al descargar la entrada {uniprot_id}: {e}")
 
-# Lista de IDs de UniProt para descargar
-uniprot_ids = descargar_ids_proteinas(criterio_busqueda='(structure_3d:true) AND (reviewed:true)')[:5]  # Reemplaza con los IDs de tu interés
 
+# Lista de IDs de UniProt para descargar
+uniprot_ids = descargar_ids_proteinas(criterio_busqueda='(structure_3d:true) AND (reviewed:true)')[
+              :5]  # Reemplaza con los IDs de tu interés
 
 descargar_uniprot(uniprot_ids)
